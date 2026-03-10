@@ -1,0 +1,230 @@
+/* ── Level Up Overlay ───────────────────────────────────────── */
+.levelup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.3s ease;
+    cursor: pointer;
+}
+
+.levelup-overlay.hiding {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+.levelup-rays {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: conic-gradient(from 0deg at 50% 50%,
+            transparent 0deg,
+            rgba(0, 180, 255, 0.04) 10deg,
+            transparent 20deg,
+            rgba(0, 180, 255, 0.04) 30deg,
+            transparent 40deg,
+            rgba(123, 47, 255, 0.04) 50deg,
+            transparent 60deg);
+    animation: raysRotate 6s linear infinite;
+}
+
+/* Caja principal */
+.levelup-box {
+    background: rgba(6, 13, 24, 0.97);
+    border: 1px solid rgba(0, 180, 255, 0.5);
+    border-radius: 4px;
+    padding: 28px 40px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-width: 280px;
+    animation: levelUpPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow:
+        0 0 40px rgba(0, 180, 255, 0.2),
+        0 0 80px rgba(0, 180, 255, 0.08),
+        inset 0 1px 0 rgba(0, 180, 255, 0.15);
+}
+
+/* Línea superior brillante */
+.levelup-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent, var(--accent-blue) 30%, var(--neon-cyan) 70%, transparent);
+}
+
+/* Esquina decorativa */
+.levelup-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid var(--accent-blue);
+    border-right: 2px solid var(--accent-blue);
+}
+
+/* Header: ícono ! + NOTIFICACIÓN */
+.levelup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.levelup-alert-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: var(--accent-blue);
+    text-shadow: 0 0 8px var(--accent-blue);
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+    flex-shrink: 0;
+    animation: iconPulse 1.2s ease-in-out infinite;
+}
+
+.levelup-notification-label {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px var(--accent-blue);
+    text-transform: uppercase;
+}
+
+/* Divisor */
+.levelup-divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent, rgba(0, 180, 255, 0.4), transparent);
+    margin-bottom: 16px;
+}
+
+/* Texto LEVEL UP */
+.levelup-title-text {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 0.35em;
+    color: var(--text-primary);
+    text-shadow: 0 0 12px rgba(0, 180, 255, 0.4);
+    margin-bottom: 14px;
+}
+
+/* Niveles: viejo >> nuevo */
+.levelup-levels {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.levelup-from {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+}
+
+.levelup-arrow {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 0;
+}
+
+.levelup-to {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #00ff88;
+    text-shadow:
+        0 0 10px #00ff88,
+        0 0 20px rgba(0, 255, 136, 0.5),
+        0 0 40px rgba(0, 255, 136, 0.2);
+    letter-spacing: 0.05em;
+    animation: newLevelPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes newLevelPulse {
+    from {
+        text-shadow: 0 0 10px #00ff88, 0 0 20px rgba(0, 255, 136, 0.5);
+    }
+
+    to {
+        text-shadow: 0 0 16px #00ff88, 0 0 32px rgba(0, 255, 136, 0.7), 0 0 48px rgba(0, 255, 136, 0.3);
+    }
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(0, 180, 255, 0.6);
+    }
+}
+
+@keyframes levelUpPop {
+    from {
+        transform: scale(0.4);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ── Welcome Screen ─────────────────────────────────────────── */
+.welcome-box {
+    min-width: 260px;
+}
+
+.welcome-text {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+}
+
+.welcome-text em {
+    font-style: italic;
+}
+
+.welcome-text strong {
+    color: var(--accent-blue);
+    text-shadow: 0 0 12px var(--accent-blue);
+}
+
+.welcome-hint {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    margin-top: 14px;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+}

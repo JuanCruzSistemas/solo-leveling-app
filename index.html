@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="theme-color" content="#020408">
+    <title>SOLO LEVELING — SISTEMA</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+    <!-- ── Fondo ────────────────────────────────────────────── -->
+    <div class="bg-layer">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+    </div>
+    <canvas id="particles-canvas"></canvas>
+    <div class="scanline"></div>
+
+    <!-- ── Loader ───────────────────────────────────────────── -->
+    <div id="loader">
+        <div class="loader-title">SISTEMA</div>
+        <div class="loader-bar">
+            <div class="loader-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- ── Toasts ───────────────────────────────────────────── -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ── App ──────────────────────────────────────────────── -->
+    <div id="app">
+
+    <!-- ════════════════════════════════════════════════════
+        SECCIÓN: PERFIL
+    ════════════════════════════════════════════════════ -->
+        <div id="section-profile" class="section">
+
+            <!-- Perfil principal -->
+            <div class="sys-window profile-card">
+                <div class="sys-window-corner-bl"></div>
+                <div class="sys-header">
+                    <span class="sys-header-title">STATUS</span>
+                    <span class="sys-header-badge">PLAYER INFO</span>
+                </div>
+                <div class="sys-body">
+                    <div class="profile-main">
+                        <div class="profile-avatar">J</div>
+                        <div class="profile-info">
+                            <div class="profile-name" id="profile-name">JUANCHI</div>
+                            <div class="profile-level-tag">
+                                <span class="profile-level-label">LVL</span>
+                                <span class="profile-level-value" id="profile-level">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EXP Bar -->
+                    <div class="exp-section">
+                        <div class="exp-labels">
+                            <span class="exp-label">EXPERIENCE</span>
+                            <span class="exp-value">
+                                <span id="exp-current">0</span> / <span id="exp-next">100</span>
+                                &nbsp;<span id="exp-pct" style="color:var(--text-muted)">0%</span>
+                            </span>
+                        </div>
+                        <div class="exp-bar-track">
+                            <div class="exp-bar-fill" id="exp-bar-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Racha -->
+                    <div class="streak-badge">
+                        <span class="streak-icon">🔥</span>
+                        <span class="streak-label">RACHA</span>
+                        <span class="streak-value" id="streak-value">0</span>
+                        <span class="streak-label">DÍAS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="sys-window">
+                <div class="sys-window-corner-bl"></div>
+                <div class="sys-header">
+                    <span class="sys-header-title">ESTADÍSTICAS</span>
+                    <span class="sys-header-badge">BASE STATS</span>
+                </div>
+                <div class="sys-body">
+                    <div class="stats-grid">
+
+                        <div class="stat-item stagger-item">
+                            <div class="stat-header">
+                                <span class="stat-icon">🧠</span>
+                                <span class="stat-name">Inteligencia</span>
+                            </div>
+                            <div class="stat-value" id="stat-int-val">0</div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill int" id="stat-int-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-item stagger-item">
+                            <div class="stat-header">
+                                <span class="stat-icon">💪</span>
+                                <span class="stat-name">Fuerza</span>
+                            </div>
+                            <div class="stat-value" id="stat-str-val">0</div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill str" id="stat-str-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-item stagger-item">
+                            <div class="stat-header">
+                                <span class="stat-icon">⚡</span>
+                                <span class="stat-name">Resistencia</span>
+                            </div>
+                            <div class="stat-value" id="stat-end-val">0</div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill end" id="stat-end-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-item stagger-item">
+                            <div class="stat-header">
+                                <span class="stat-icon">🎯</span>
+                                <span class="stat-name">Disciplina</span>
+                            </div>
+                            <div class="stat-value" id="stat-dis-val">0</div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill dis" id="stat-dis-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-item stagger-item" style="grid-column: 1 / -1;">
+                            <div class="stat-header">
+                                <span class="stat-icon">🛠</span>
+                                <span class="stat-name">Habilidad</span>
+                            </div>
+                            <div class="stat-value" id="stat-skl-val">0</div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill skl" id="stat-skl-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /PERFIL -->
+
+
+        <!-- ════════════════════════════════════════════════════
+        SECCIÓN: MISIONES
+    ════════════════════════════════════════════════════ -->
+        <div id="section-quests" class="section">
+
+            <div class="section-header">
+                <span class="section-title">
+                    <span class="section-title-accent">◈</span> MISIONES
+                </span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="daily">DIARIAS</button>
+                <button class="tab-btn" data-tab="weekly">SEMANALES</button>
+                <button class="tab-btn" data-tab="story">HISTORIA</button>
+            </div>
+
+            <!-- Lista de misiones -->
+            <div id="quest-list-container" class="quest-list">
+                <div class="spinner" style="margin-top:32px"></div>
+            </div>
+
+        </div>
+        <!-- /MISIONES -->
+
+
+        <!-- ════════════════════════════════════════════════════
+        SECCIÓN: ACTIVIDAD
+    ════════════════════════════════════════════════════ -->
+        <div id="section-activity" class="section">
+
+            <div class="section-header">
+                <span class="section-title">
+                    <span class="section-title-accent">◈</span> REGISTRAR
+                </span>
+            </div>
+
+            <!-- Acciones rápidas -->
+            <div class="sys-window">
+                <div class="sys-window-corner-bl"></div>
+                <div class="sys-header">
+                    <span class="sys-header-title">ACCIÓN RÁPIDA</span>
+                    <span class="sys-header-badge">QUICK LOG</span>
+                </div>
+                <div class="sys-body">
+                    <div id="activity-grid" class="activity-grid">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temporizador -->
+            <div class="sys-window">
+                <div class="sys-window-corner-bl"></div>
+                <div class="sys-header">
+                    <span class="sys-header-title">TEMPORIZADOR</span>
+                    <span class="sys-header-badge">TIMER</span>
+                </div>
+                <div class="sys-body">
+
+                    <div class="form-group">
+                        <label class="form-label">Actividad</label>
+                        <select class="sys-select" id="timer-activity-select">
+                            <option value="" disabled selected>Seleccioná una actividad...</option>
+                        </select>
+                    </div>
+
+                    <div class="timer-display">
+                        <div class="timer-value" id="timer-display">00:00</div>
+                        <div class="timer-activity-name" id="timer-activity-name"></div>
+                    </div>
+
+                    <div style="display:flex; gap:8px; margin-top:8px">
+                        <button class="btn-primary" id="timer-btn" onclick="alternarTemporizador()">
+                            ▶ INICIAR
+                        </button>
+                        <button class="btn-primary btn-stop" onclick="reiniciarTemporizador()"
+                            style="width:auto; padding:12px 16px; font-size:0.65rem;">
+                            ✕
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /ACTIVIDAD -->
+
+
+        <!-- ════════════════════════════════════════════════════
+        SECCIÓN: HISTORIAL
+    ════════════════════════════════════════════════════ -->
+        <div id="section-history" class="section">
+
+            <div class="section-header">
+                <span class="section-title">
+                    <span class="section-title-accent">◈</span> HISTORIAL
+                </span>
+            </div>
+
+            <div class="sys-window">
+                <div class="sys-window-corner-bl"></div>
+                <div class="sys-header">
+                    <span class="sys-header-title">ACTIVIDAD RECIENTE</span>
+                    <span class="sys-header-badge">LOG</span>
+                </div>
+                <div class="sys-body" id="history-container">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /HISTORIAL -->
+
+        <!-- ════════════════════════════════════════════════════
+        SECCIÓN: MAZMORRA
+    ════════════════════════════════════════════════════ -->
+        <div id="section-dungeon" class="section">
+            <div class="section-header">
+                <span class="section-title">
+                    <span class="section-title-accent">◈</span> MAZMORRA
+                </span>
+            </div>
+            <div id="dungeon-container">
+                <div class="spinner"></div>
+            </div>
+        </div>
+        <!-- /MAZMORRA -->
+
+    </div>
+    <!-- /app -->
+
+
+    <!-- ── Bottom Navigation ─────────────────────────────────── -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-section="profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">ESTADO</span>
+        </button>
+        <button class="nav-item" data-section="quests">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">MISIONES</span>
+        </button>
+        <button class="nav-item" data-section="dungeon">
+            <span class="nav-icon">🏰</span>
+            <span class="nav-label">MAZMORRA</span>
+        </button>
+        <button class="nav-item" data-section="activity">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">ACCIÓN</span>
+        </button>
+        <button class="nav-item" data-section="history">
+            <span class="nav-icon">📜</span>
+            <span class="nav-label">HISTORIAL</span>
+        </button>
+    </nav>
+
+
+    <!-- ── Scripts ───────────────────────────────────────────── -->
+    <script src="js/particles.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/quests.js"></script>
+    <script src="js/activity.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/dungeon.js"></script>
+
+</body>
+
+</html>
