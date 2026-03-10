@@ -17,17 +17,17 @@ async function renderHistory() {
         }
 
         contenedor.innerHTML = registros.slice(0, 30).map((registro) => {
-            const duracion = registro.durationMinutes ? `${registro.durationMinutes}m` : 'Rápido';
-            const fecha    = formatearFecha(registro.loggedAt);
+            const duracion = registro.duracionMinutos ? `${registro.duracionMinutos}m` : 'Rápido';
+            const fecha    = formatearFecha(registro.registradoEn);
 
             return `
                 <div class="history-item stagger-item">
-                    <div class="history-icon">${registro.activityType?.icono || '⚡'}</div>
+                    <div class="history-icon">${registro.tipoActividad?.icono || '⚡'}</div>
                     <div class="history-info">
-                        <div class="history-name">${registro.activityType?.nombre || 'Actividad'}</div>
+                        <div class="history-name">${registro.tipoActividad?.nombre || 'Actividad'}</div>
                         <div class="history-meta">${fecha} · ${duracion}</div>
                     </div>
-                    <div class="history-exp">+${registro.expEarned}</div>
+                    <div class="history-exp">+${registro.expGanada}</div>
                 </div>
             `;
         }).join('');
